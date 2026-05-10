@@ -111,7 +111,7 @@ html,body{height:100%;font-family:var(--font);background:#F0FDF4;direction:rtl;o
 .fbrow.ok{background:#DCFCE7;}
 .fbrow.ng{background:#FEF2F2;}
 .fbrow.idle{background:#F9FAFB;}
-.fbmsg{font-size:13px;font-weight:700;color:#14532D;flex:1;line-height:1.4;white-space:pre-line;}
+.fbmsg{font-size:13px;font-weight:700;color:#14532D;flex:1;line-height:1.4;white-space:pre-line;unicode-bidi:plaintext;}
 .streak-row{display:flex;gap:7px;}
 .streak-chip{flex:1;background:#fff;border-radius:12px;padding:9px 4px;text-align:center;font-size:12px;color:#4B7A5A;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.06);}
 .streak-chip strong{display:block;font-size:20px;font-weight:900;color:#14532D;}
@@ -329,7 +329,7 @@ function fracBar(denom, filled, color='#A78BFA', label=''){
     const f=i<filled;
     parts+=`<div class="fbar-part ${f?'filled':''}" style="${f?`background:${color}`:'background:rgba(255,255,255,.06)'}"></div>`;
   }
-  const labelHtml = label ? `<div style="text-align:center;font-size:15px;font-weight:800;color:#F0F9FF;margin-top:6px;direction:ltr">${label}</div>` : '';
+  const labelHtml = label ? `<div style="text-align:center;font-size:15px;font-weight:800;color:#14532D;margin-top:6px;direction:ltr">${label}</div>` : '';
   return `<div style="width:100%"><div class="fbar-wrap">${parts}</div>${labelHtml}</div>`;
 }
 
@@ -363,9 +363,9 @@ function pizzaVis(denom, filled, color='#FB923C', label='', size=120){
   // Build stacked fraction label
   const fontSize = size < 110 ? 15 : 17;
   const labelHtml = label
-    ? `<div style="font-size:${fontSize}px;font-weight:900;color:#F0F9FF;margin-top:6px;text-align:center;display:flex;flex-direction:column;align-items:center;direction:ltr">
+    ? `<div style="font-size:${fontSize}px;font-weight:900;color:#14532D;margin-top:6px;text-align:center;display:flex;flex-direction:column;align-items:center;direction:ltr">
         <span>${filled}</span>
-        <span style="display:block;height:2px;background:#F0F9FF;width:24px;border-radius:1px;margin:2px 0"></span>
+        <span style="display:block;height:2px;background:#14532D;width:24px;border-radius:1px;margin:2px 0"></span>
         <span>${denom}</span>
        </div>`
     : '';
@@ -373,10 +373,10 @@ function pizzaVis(denom, filled, color='#FB923C', label='', size=120){
 }
 
 function fracDisplay(num, denom){
-  return `<span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1.1;direction:ltr;font-size:28px;font-weight:900"><span>${num}</span><span style="width:100%;height:3px;background:#F0F9FF;display:block;margin:3px 0;border-radius:2px"></span><span>${denom}</span></span>`;
+  return `<span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1.1;direction:ltr;font-size:28px;font-weight:900;color:#14532D"><span>${num}</span><span style="width:100%;height:3px;background:#14532D;display:block;margin:3px 0;border-radius:2px"></span><span>${denom}</span></span>`;
 }
 
-function fracInline(num, denom, color='#F0F9FF'){
+function fracInline(num, denom, color='#14532D'){
   return `<span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1;direction:ltr;vertical-align:middle;margin:0 2px"><span style="font-size:.75em;font-weight:900;color:${color}">${num}</span><span style="width:100%;height:2px;background:${color};display:block;margin:2px 0;border-radius:1px;min-width:18px"></span><span style="font-size:.75em;font-weight:900;color:${color}">${denom}</span></span>`;
 }
 
@@ -398,38 +398,33 @@ function colMultVis(a, b, step){
 
   // ── Row 1: carry ──
   if(step>=1 && carry>0){
-    svg+=`<text x="${col1+cw/2}" y="${row1+14}" text-anchor="middle" font-size="18" fill="#FBBF24">${carry}</text>`;
+    svg+=`<text x="${col1+cw/2}" y="${row1+14}" text-anchor="middle" font-size="18" fill="#CA8A04">${carry}</text>`;
   }
 
   // ── Row 2: top number (a) ──
-  // tens digit
-  svg+=`<text x="${col1+cw/2}" y="${row2}" text-anchor="middle" font-size="34" fill="${step===1?'#F0F9FF':'#F0F9FF'}">${a1}</text>`;
-  // units digit — highlight in step 1
-  svg+=`<text x="${col2+cw/2}" y="${row2}" text-anchor="middle" font-size="34" fill="${step===1?'#FBBF24':'#F0F9FF'}">${a0}</text>`;
+  svg+=`<text x="${col1+cw/2}" y="${row2}" text-anchor="middle" font-size="34" fill="#14532D">${a1}</text>`;
+  svg+=`<text x="${col2+cw/2}" y="${row2}" text-anchor="middle" font-size="34" fill="${step===1?'#CA8A04':'#14532D'}">${a0}</text>`;
 
   // ── Row 3: × b ──
-  svg+=`<text x="${col1+cw/2}" y="${row3}" text-anchor="middle" font-size="30" fill="#94A3B8">×</text>`;
-  svg+=`<text x="${col2+cw/2}" y="${row3}" text-anchor="middle" font-size="34" fill="${step===1?'#FBBF24':'#F0F9FF'}">${b}</text>`;
+  svg+=`<text x="${col1+cw/2}" y="${row3}" text-anchor="middle" font-size="30" fill="#4B7A5A">×</text>`;
+  svg+=`<text x="${col2+cw/2}" y="${row3}" text-anchor="middle" font-size="34" fill="${step===1?'#CA8A04':'#14532D'}">${b}</text>`;
 
   // ── Divider line ──
   const ly=row3+14;
-  svg+=`<line x1="${x0-4}" y1="${ly}" x2="${svgW-x0+4}" y2="${ly}" stroke="rgba(255,255,255,.45)" stroke-width="2.5" stroke-linecap="round"/>`;
+  svg+=`<line x1="${x0-4}" y1="${ly}" x2="${svgW-x0+4}" y2="${ly}" stroke="#14532D" stroke-width="2.5" stroke-linecap="round"/>`;
 
   // ── Result row ──
   const ry2=ly+42;
   if(step===0){
-    svg+=`<text x="${col1+cw/2}" y="${ry2}" text-anchor="middle" font-size="34" fill="rgba(255,255,255,.2)">?</text>`;
-    svg+=`<text x="${col2+cw/2}" y="${ry2}" text-anchor="middle" font-size="34" fill="rgba(255,255,255,.2)">?</text>`;
+    svg+=`<text x="${col1+cw/2}" y="${ry2}" text-anchor="middle" font-size="34" fill="#BBF7D0">?</text>`;
+    svg+=`<text x="${col2+cw/2}" y="${ry2}" text-anchor="middle" font-size="34" fill="#BBF7D0">?</text>`;
   } else if(step===1){
-    // only units digit of result so far
-    svg+=`<text x="${col2+cw/2}" y="${ry2}" text-anchor="middle" font-size="34" fill="#FBBF24">${unitsDigit}</text>`;
-    // explanation
-    svg+=`<text x="${svgW/2}" y="${ry2+30}" text-anchor="middle" font-size="14" fill="#7DD3FC">${a0}×${b}=${units}${carry>0?' | העברה: '+carry:''}</text>`;
+    svg+=`<text x="${col2+cw/2}" y="${ry2}" text-anchor="middle" font-size="34" fill="#CA8A04">${unitsDigit}</text>`;
+    svg+=`<text x="${svgW/2}" y="${ry2+30}" text-anchor="middle" font-size="14" fill="#4B7A5A">${a0}×${b}=${units}${carry>0?' | העברה: '+carry:''}</text>`;
   } else {
-    // full result — tens and units
     const r1=Math.floor(result/10), r0=result%10;
-    svg+=`<text x="${col1+cw/2}" y="${ry2}" text-anchor="middle" font-size="34" fill="#FBBF24">${r1}</text>`;
-    svg+=`<text x="${col2+cw/2}" y="${ry2}" text-anchor="middle" font-size="34" fill="#FBBF24">${r0}</text>`;
+    svg+=`<text x="${col1+cw/2}" y="${ry2}" text-anchor="middle" font-size="34" fill="#CA8A04">${r1}</text>`;
+    svg+=`<text x="${col2+cw/2}" y="${ry2}" text-anchor="middle" font-size="34" fill="#CA8A04">${r0}</text>`;
   }
 
   svg+=`</svg>`;
@@ -440,19 +435,17 @@ function rectVis(w, h, mode){
   // mode: 'plain', 'perimeter', 'area', 'both'
   const svgW=260, svgH=170;
   const rx=30, ry=20, rw=200, rh=100;
-  let fillColor = mode==='area'||mode==='both' ? 'rgba(244,114,182,.25)' : 'rgba(255,255,255,.05)';
-  let strokeCol = mode==='perimeter'||mode==='both' ? '#FBBF24' : 'rgba(255,255,255,.4)';
+  let fillColor = mode==='area'||mode==='both' ? 'rgba(244,114,182,.18)' : 'rgba(220,252,231,.5)';
+  let strokeCol = mode==='perimeter'||mode==='both' ? '#CA8A04' : '#86EFAC';
   let sw = mode==='perimeter'||mode==='both' ? 4 : 2;
 
   let svg=`<svg width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}" style="direction:ltr">`;
   svg+=`<rect x="${rx}" y="${ry}" width="${rw}" height="${rh}" fill="${fillColor}" stroke="${strokeCol}" stroke-width="${sw}" rx="6"/>`;
-  // labels
-  svg+=`<text x="${rx+rw/2}" y="${ry-6}" text-anchor="middle" fill="#F0F9FF" font-size="16" font-family="Nunito" font-weight="800">${w}</text>`;
-  svg+=`<text x="${rx+rw+8}" y="${ry+rh/2+5}" text-anchor="start" fill="#F0F9FF" font-size="16" font-family="Nunito" font-weight="800">${h}</text>`;
+  svg+=`<text x="${rx+rw/2}" y="${ry-6}" text-anchor="middle" fill="#14532D" font-size="16" font-family="Nunito" font-weight="800">${w}</text>`;
+  svg+=`<text x="${rx+rw+8}" y="${ry+rh/2+5}" text-anchor="start" fill="#14532D" font-size="16" font-family="Nunito" font-weight="800">${h}</text>`;
   if(mode==='perimeter'||mode==='both'){
-    // arrows on all sides
-    svg+=`<text x="${rx+rw/2}" y="${ry+rh+18}" text-anchor="middle" fill="#FBBF24" font-size="13" font-family="Nunito" font-weight="800">${w}</text>`;
-    svg+=`<text x="${rx-12}" y="${ry+rh/2+5}" text-anchor="end" fill="#FBBF24" font-size="13" font-family="Nunito" font-weight="800">${h}</text>`;
+    svg+=`<text x="${rx+rw/2}" y="${ry+rh+18}" text-anchor="middle" fill="#CA8A04" font-size="13" font-family="Nunito" font-weight="800">${w}</text>`;
+    svg+=`<text x="${rx-12}" y="${ry+rh/2+5}" text-anchor="end" fill="#CA8A04" font-size="13" font-family="Nunito" font-weight="800">${h}</text>`;
   }
   if(mode==='area'||mode==='both'){
     // grid hint
@@ -864,11 +857,16 @@ function openTopic(i){
   const t=TOPICS[i];
   document.getElementById('topic-topbar-name').textContent=t.name;
   document.getElementById('topbar-emoji').textContent=t.emoji;
-  // tab color
+  // show learn, hide practice
+  document.getElementById('learn-area').style.display='flex';
+  document.getElementById('practice-area').style.display='none';
+  // tab colors
+  document.getElementById('tab-learn').classList.add('on');
+  document.getElementById('tab-practice').classList.remove('on');
   document.getElementById('tab-learn').style.background=t.color+'33';
   document.getElementById('tab-learn').style.color=t.color;
-  document.getElementById('tab-practice').style.background='rgba(255,255,255,.07)';
-  document.getElementById('tab-practice').style.color='var(--muted)';
+  document.getElementById('tab-practice').style.background='#F0FDF4';
+  document.getElementById('tab-practice').style.color='#4B7A5A';
   // OK button color
   document.getElementById('ok-btn').style.background=`linear-gradient(135deg,${t.color},${t.color}99)`;
   document.getElementById('s-home').classList.remove('on');
@@ -971,13 +969,13 @@ function newQ(){
     const svgW=x0*2+cw*2+10, svgH=row3+60;
     disp.innerHTML=`<div style="display:flex;justify-content:center">
       <svg width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}" style="direction:ltr;font-family:Nunito,Arial;font-weight:900">
-        <text x="${x0+cw/2}" y="${row2}" text-anchor="middle" font-size="34" fill="#F0F9FF">${a1}</text>
-        <text x="${x0+cw+cw/2}" y="${row2}" text-anchor="middle" font-size="34" fill="#F0F9FF">${a0}</text>
-        <text x="${x0+cw/2}" y="${row3}" text-anchor="middle" font-size="28" fill="#94A3B8">×</text>
-        <text x="${x0+cw+cw/2}" y="${row3}" text-anchor="middle" font-size="34" fill="#F0F9FF">${CQ.num2}</text>
-        <line x1="${x0-4}" y1="${row3+14}" x2="${svgW-x0+4}" y2="${row3+14}" stroke="rgba(255,255,255,.45)" stroke-width="2.5" stroke-linecap="round"/>
-        <text x="${x0+cw/2}" y="${row3+56}" text-anchor="middle" font-size="34" fill="rgba(255,255,255,.25)">?</text>
-        <text x="${x0+cw+cw/2}" y="${row3+56}" text-anchor="middle" font-size="34" fill="rgba(255,255,255,.25)">?</text>
+        <text x="${x0+cw/2}" y="${row2}" text-anchor="middle" font-size="34" fill="#14532D">${a1}</text>
+        <text x="${x0+cw+cw/2}" y="${row2}" text-anchor="middle" font-size="34" fill="#14532D">${a0}</text>
+        <text x="${x0+cw/2}" y="${row3}" text-anchor="middle" font-size="28" fill="#4B7A5A">×</text>
+        <text x="${x0+cw+cw/2}" y="${row3}" text-anchor="middle" font-size="34" fill="#14532D">${CQ.num2}</text>
+        <line x1="${x0-4}" y1="${row3+14}" x2="${svgW-x0+4}" y2="${row3+14}" stroke="#14532D" stroke-width="2.5" stroke-linecap="round"/>
+        <text x="${x0+cw/2}" y="${row3+56}" text-anchor="middle" font-size="34" fill="#BBF7D0">?</text>
+        <text x="${x0+cw+cw/2}" y="${row3+56}" text-anchor="middle" font-size="34" fill="#BBF7D0">?</text>
       </svg>
     </div>`;
   } else if(CQ.type==='frac'){
