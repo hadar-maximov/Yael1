@@ -431,7 +431,7 @@ function colMultVis(a, b, step){
   return `<div style="display:flex;justify-content:center">${svg}</div>`;
 }
 
-function rectVis(w, h, mode){
+function rectVis(w, h, mode, hideAnswer=false){
   // mode: 'plain', 'perimeter', 'area', 'both'
   const svgW=260, svgH=170;
   const rx=30, ry=20, rw=200, rh=100;
@@ -457,7 +457,7 @@ function rectVis(w, h, mode){
       const y=ry+j*(rh/h);
       svg+=`<line x1="${rx}" y1="${y}" x2="${rx+rw}" y2="${y}" stroke="rgba(244,114,182,.3)" stroke-width="1"/>`;
     }
-    svg+=`<text x="${rx+rw/2}" y="${ry+rh/2+6}" text-anchor="middle" fill="#F472B6" font-size="22" font-family="Nunito" font-weight="900">${w*h}</text>`;
+    svg+=`<text x="${rx+rw/2}" y="${ry+rh/2+6}" text-anchor="middle" fill="#F472B6" font-size="22" font-family="Nunito" font-weight="900">${hideAnswer ? '?' : w*h}</text>`;
   }
   svg+=`</svg>`;
   return svg;
@@ -1010,7 +1010,7 @@ function newQ(){
     disp.className='q-display';
     disp.style.fontSize='20px';
     disp.innerHTML=`
-      <div style="display:flex;justify-content:center;margin-bottom:8px">${rectVis(CQ.w,CQ.h,'area')}</div>
+      <div style="display:flex;justify-content:center;margin-bottom:8px">${rectVis(CQ.w,CQ.h,'area',true)}</div>
       <div style="text-align:center;line-height:1.8">שטח = ?</div>`;
   } else {
     lbl.textContent='חילוק עם שארית';
